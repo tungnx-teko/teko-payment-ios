@@ -13,4 +13,5 @@ public enum PaymentError: Error {
     case missingServiceCode
     case missingSecretKey
     case databaseNotConfigured
+    case missingToken
 }

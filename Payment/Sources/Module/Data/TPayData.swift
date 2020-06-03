@@ -7,7 +7,7 @@
 
 import Foundation
 
-public class TPayData: Decodable {
+public class TPayTransaction: Decodable {
     public var url: String?
     public var transactionCode: String?
     private var link: Int?

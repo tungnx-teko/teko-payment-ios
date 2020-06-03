@@ -10,5 +10,5 @@ import Foundation
 public enum PaymentEvent {
     case transactionCreated(_ transaction: Transaction)
     case qrGenerated(_ transaction: Transaction)
-    case tpayCreated(data: TPayData)
+    case tpayCreated(_ data: TPayTransaction)
 }
