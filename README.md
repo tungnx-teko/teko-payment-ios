@@ -27,16 +27,16 @@ import PaymentSDK
 
 ```swift
 private func setupPayment() {
-let configs = PaymentConfigsBuilder()
-.clientCode(...)
-.baseUrl(...)
-.secretKey(...)
-.serviceCode(...)
-.terminalCode(...)
-.returnUrl(...)
-.cancelUrl(...)
-.build()
-Payment.setConfigs(configs)
+    let configs = PaymentConfigsBuilder()
+        .clientCode(...)
+        .baseUrl(...)
+        .secretKey(...)
+        .serviceCode(...)
+        .terminalCode(...)
+        .returnUrl(...)
+        .cancelUrl(...)
+        .build()
+    Payment.setConfigs(configs)
 }
 ```
 
