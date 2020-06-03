@@ -10,14 +10,34 @@
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
 ## Requirements
+iOS 10.0 or above
 
 ## Installation
 
-Payment is available through [CocoaPods](https://cocoapods.org). To install
-it, simply add the following line to your Podfile:
+Install PaymentSDK via pod
 
 ```ruby
-pod 'Payment'
+pod 'PaymentSDK', :git => 'https://github.com/tungnx-teko/teko-payment-ios.git'
+```
+
+Setup configs before call functions
+```swift
+import PaymentSDK
+``` 
+
+```swift
+private func setupPayment() {
+let configs = PaymentConfigsBuilder()
+.clientCode(...)
+.baseUrl(...)
+.secretKey(...)
+.serviceCode(...)
+.terminalCode(...)
+.returnUrl(...)
+.cancelUrl(...)
+.build()
+Payment.setConfigs(configs)
+}
 ```
 
 ## Author
