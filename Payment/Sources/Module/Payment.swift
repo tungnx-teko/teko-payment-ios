@@ -6,8 +6,6 @@
 //
 
 import Foundation
-import FirebaseDatabase
-import FirebasePlugin
 
 public class Payment {
     

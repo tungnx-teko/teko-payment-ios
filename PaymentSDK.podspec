@@ -43,6 +43,5 @@ TODO: Add long description of the pod here.
   
   s.static_framework = true
   
-  s.dependency 'FirebasePlugin'
   s.dependency 'Networking'
 end
