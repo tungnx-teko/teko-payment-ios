@@ -43,5 +43,6 @@ TODO: Add long description of the pod here.
   
   s.static_framework = true
   
-  s.dependency 'Networking'
+  s.dependency 'Networking', :git => 'https://github.com/tungnx-teko/teko-networking-ios.git'
+  
 end
