@@ -12,10 +12,14 @@ public class Payment {
     static var configs: PaymentConfigs = PaymentConfigsBuilder().build()
     private static let generator = PayloadGenerator.shared
     private static let service = PaymentService()
-    private static var token: String = ""
+    static var token: String = ""
     
     public static func setConfigs(_ configs: PaymentConfigs) {
         Payment.configs = configs
+    }
+    
+    public static func setToken(_ token: String) {
+        Payment.token = token
     }
     
     public static func generateQR(order: OrderObject,
@@ -50,6 +54,18 @@ public class Payment {
         try validateToken(token: token)
         
         let payload = generator.generateTranCreatePayload(order: order, method: method)
+        service.createTPayTransaction(payload: payload,
+                                      onSuccess: { tran in onEvent(.tpayCreated(tran)) },
+                                      onError: { error in onError(error) })
+    }
+    
+    public static func confirmTPay(otp: String,
+                                   transactionCode: String,
+                                   onEvent: @escaping (PaymentEvent) -> (),
+                                   onError: @escaping (PSError) -> ()) throws {
+        try validateConfigs(configs: configs)
+        try validateToken(token: token)
+        let payload = generator.generateTPayConfirmPayload(otp: otp, transactionCode: transactionCode)
         service.createTPayTransaction(payload: payload,
                                       onSuccess: { tran in onEvent(.tpayCreated(tran)) },
                                       onError: { error in onError(error) })

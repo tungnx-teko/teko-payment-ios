@@ -13,7 +13,7 @@ class PayloadGenerator {
     
     public static let shared = PayloadGenerator()
     
-    func generateTranCreatePayload(order: OrderObject, method: PaymentMethod) -> [String: Any] {
+    func generateTranCreatePayload(order: OrderObject, method: PaymentMethod) -> Payload {
         var dict = [String: Any]()
         dict["clientCode"] = Payment.configs.clientCode
         dict["terminalCode"] = Payment.configs.terminalCode
@@ -29,6 +29,15 @@ class PayloadGenerator {
         dict["orderDescription"] = order.orderDescription
         dict["amount"] = order.amount
         dict["clientRequestTime"] = DateUtils.toString(date: Date())
+        dict["checksum"] = MD5Encryptor.encrypt(text: Payment.configs.secretKey + dict.stringify)
+        return dict
+    }
+    
+    func generateTPayConfirmPayload(otp: String, transactionCode: String) -> Payload {
+        var dict = [String: Any]()
+        dict["clientCode"] = Payment.configs.clientCode
+        dict["psTransactionCode"] = transactionCode
+        dict["otp"] = otp
         dict["checksum"] = MD5Encryptor.encrypt(text: Payment.configs.secretKey + dict.stringify)
         return dict
     }

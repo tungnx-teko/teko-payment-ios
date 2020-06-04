@@ -14,7 +14,7 @@ enum PaymentEndpoint {
     case generateQR(payload: Payload)
     case createTransaction(payload: Payload)
     case createTpayTransaction(payload: Payload)
-    case confirmTpay
+    case confirmTpay(payload: Payload)
 }
 
 extension PaymentEndpoint: EndPointType {
@@ -42,18 +42,20 @@ extension PaymentEndpoint: EndPointType {
     
     var task: HTTPTask {
         switch self {
-        case .generateQR(let payload):
+        case .generateQR(let payload), .createTpayTransaction(let payload), .confirmTpay(let payload):
+            print(payload)
             return .requestParametersAndHeaders(bodyParameters: payload,
                                                 bodyEncoding: .jsonEncoding,
                                                 urlParameters: nil,
-                                                additionHeaders: nil)
+                                                additionHeaders: headers)
         default:
             return .request
         }
     }
     
     var headers: HTTPHeaders? {
-        return ["Content-Type": "application/json"]
+        let headers = ["Content-Type": "application/json", "Accept": "application/json", "Authorization": Payment.token]
+        return headers
     }
     
 }
